@@ -1,0 +1,64 @@
+University Id : N17385760
+Net Id : iv447
+
+1.      (λx.x)(λx.x)
+Sol:   (λx.x)(λx.x)                                                  // α-substitution: rename x to z
+         (λx.x)(λz.z)                                                  // (β-reduction)[(λz.z)/x]x: replace x with λz.z
+         (λz.z)
+
+2.     (λx.x x)(λx. λy.x x)
+Sol:   (λx. λy.x x)(λx. λy.x x)                                 // α-substitution: rename x to u
+         (λx. λy.x x)(λu. λy.u u)                                // (β-reduction)[(λu. λy.u u)/x]x: replace x with λu. λy.u u
+         (λu. λy.u u)(λu. λy.u u)                               // α-substitution: rename u to z
+         (λu. λy.u u)(λz. λy.z z)                               // (β-reduction)[(λz. λy.z z)/u]u: replace u with λz. λy.z z
+         λy(λz. λy.z z)(λz. λy.z z)                            // This is a non terminating lambda expression
+
+3.      ((λx.(x y))(λz.z))
+Sol:   ((λx.(x y))(λz.z))                                         // β-reduction: replace x with λz.z
+         ((λz.z) y)                                                   // β-reduction: replace z with y
+          y
+
+4.     (λz.z) (λy.y y) (λx.x a)
+Sol:   (λz.z) (λy.y y) (λx.x a)                               // β-reduction: replace z with λy.y y
+         (λy.y y) (λx.x a)                                        // β-reduction: replace y with λx.x a
+         (λx.x a) (λx.x a)                                       // β-reduction: replace x with λx.x a
+         (λx.x a) a                                                // β-reduction: replace x with a
+         a a
+
+5.      (λz.z) (λz.z z) (λz.z y)
+Sol:   (λz.z) (λz.z z) (λz.z y)                              // β-reduction: replace z with λz.z z
+         (λz.z z) (λz.z y)                                       // β-reduction: replace z with λz.z y
+         (λz.z y) (λz.z y)                                      // β-reduction: replace z with λz.z y
+         (λz.z y) y                                               // β-reduction: replace z with y
+          y y
+
+6.     (λx.λy.x y y) (λa.a) b
+Sol:   (λx.λy.x y y) (λa.a) b                             // β-reduction: replace x with λa.a
+         (λy.(λa.a) y y) b                                     // β-reduction: replace y with b
+         (λa.a) b b                                              // β-reduction: replace a with b
+         b b
+
+7.     (λx.x x) (λy.y x) z
+sol:   (λx.x x) (λy.y x) z                                    // β-reduction: replacing x with λy.y x
+         (λy.y x) (λy.y x) z                                    // β-reduction: replacing y with λy.y x
+         (λy.y x) x z                                             // β-reduction: replacing y with x
+          x x z
+
+8.    (λx. (λy. (x y)) y) z
+Sol:  (λx. (λy. (x y)) y) z                                   // α-substitution: rename y to a
+        (λx. (λa. (x a)) y) z                                   // β-reduction: replacing x with z
+        (λa. (z a)) y                                             // β-reduction: replacing a with y
+         z y
+
+9.    ((λx.x x) (λy.y)) (λy.y)
+Sol:  ((λx.x x) (λy.y)) (λy.y)                               // β-reduction: replacing x with λy.y
+        ((λy.y) (λy.y)) (λy.y)                                  // β-reduction: replacing y with λy.y
+        (λy.y) (λy.y)                                             // β-reduction: replacing y with λy.y
+        λy.y
+
+10.   (((λx. λy.(x y))(λy.y)) w)
+sol:  (((λx. λy.(x y))(λy.y)) w)                            //α-substitution: rename y to a
+        (((λx. λa.(x a))(λy.y)) w)                          // β-reduction: replacing x with λy.y
+        ((λa.((λy.y) a)) w)                                   // β-reduction: replacing a with w
+        (λy.y) w                                                // β-reduction: replacing y with λy.y
+         w
